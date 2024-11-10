@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+background-image: url("https://img.freepik.com/free-vector/blue-curve-frame-template_53876-116707.jpg");
+background-size: cover;
+background-attachment: fixed;
+background-repeat: no-repeat;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background-color: #fff;
+  padding: 60px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+  max-width: 800px;
+  width: 100%;
+}
+
+h1 {
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.todo-input {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#taskInput {
+  width: 70%;
+  font-size: 20px;
+ color: #000;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+}
+
+#addTaskBtn {
+  padding: 15px;
+  font-size: 20px;
+  border: none;
+  background-color: #3be643;
+  color: #000;
+  border-radius: 0 9px 9px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#addTaskBtn:hover {
+  background-color: #012c03;
+  color: #fff;
+}
+
+#todoList {
+  list-style: none;
+  padding: 0;
+}
+
+#todoList li {
+  background-color: #fafafa;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: left;
+  position: relative;
+}
+
+#todoList li::before {
+  content: "•";
+  color: #013a03;
+  font-size: 30px;
+  padding-right: 10px;
+}
+
+button.delete-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: #2b0101;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+button.delete-btn:hover {
+  color: #4CAF50;
+}
+
+</style>
+<body>
+   <div class="container">
+        <h1>Todo-List Application</h1>
+        
+        <div class="todo-input">
+          <input type="text" id="taskInput" placeholder="Enter Your New Task" />
+          <button id="addTaskBtn">Add Task</button>
+        </div>
+        
+        <ul id="todoList"></ul>
+      </div>
+    
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const todoList = [];
+  const taskInput = document.getElementById("taskInput");
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const todoListContainer = document.getElementById("todoList");
+
+  addTaskBtn.addEventListener("click", () => {
+    const task = taskInput.value.trim();
+    if (task) {
+      todoList.push(task);
+      displayTasks();
+      taskInput.value = ""; // Clear input field
+    } else {
+      alert("Please enter a task.");
+    }
+  });
+
+  function displayTasks() {
+    todoListContainer.innerHTML = "";
+    todoList.forEach((task, index) => {
+      const li = document.createElement("li");
+      li.textContent = task;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.innerHTML = "&times;";
+      deleteBtn.onclick = () => {
+        todoList.splice(index, 1);
+        displayTasks();
+      };
+
+      li.appendChild(deleteBtn);
+      todoListContainer.appendChild(li);
+    });
+  }
+});
+
+    </script>
+</body>
+</html>
